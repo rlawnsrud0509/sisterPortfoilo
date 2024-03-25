@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!--이거랑 밑에한줄 건들지마셈-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+    <!--이건 크롭탭 위에 뜨는 이름임-->
+
+    <!--이건css라고 html에 스타일주는거-->
+    <style>
+      #container {
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: black;
+      }
+
+      #videoBox {
+        width: 400px;
+        height: 400px;
+
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <a href="https://ythrico.blogspot.com"
+        ><video src="./v.mp4" id="videoBox" autoplay></video>
+      </a>
+    </div>
+    <script>
+      let AudioContext;
+      let audioContext;
+
+      window.onload = function () {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then(() => {
+            AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContext();
+          })
+          .catch((e) => {
+            console.error(`Audio permissions denied: ${e}`);
+          });
+      };
+
+      let videoBox = document.getElementById("videoBox");
+
+      videoBox.addEventListener("mouseover", () => {
+        videoBox.play();
+      });
+      videoBox.addEventListener("mouseleave", () => {
+        videoBox.currentTime = 0;
+        videoBox.pause();
+      });
+    </script>
+  </body>
+</html>
